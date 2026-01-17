@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unknwns.io</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: #000;
+            color: #0f0;
+            font-family: 'Courier New', monospace;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            position: relative;
+        }
+        
+        /* Scanline effect */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 255, 0, 0.03) 0px,
+                transparent 1px,
+                transparent 2px,
+                rgba(0, 255, 0, 0.03) 3px
+            );
+            pointer-events: none;
+            animation: scanlines 8s linear infinite;
+        }
+        
+        @keyframes scanlines {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(10px); }
+        }
+        
+        .container {
+            text-align: center;
+            z-index: 1;
+            max-width: 800px;
+        }
+        
+        .logo {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 2rem auto;
+        }
+        
+        .radar {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            overflow: hidden;
+            border-radius: 50%;
+        }
+        
+        .radar-circle {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 2px solid #0f0;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #0f0, inset 0 0 10px #0f0;
+        }
+        
+        .radar-line {
+            position: absolute;
+            width: 2px;
+            height: 60px;
+            background: linear-gradient(to bottom, #0f0, transparent);
+            left: calc(50% - 1px);
+            bottom: 50%;
+            transform-origin: bottom center;
+            animation: scan 3s linear infinite;
+            box-shadow: 0 0 10px #0f0;
+        }
+        
+        .radar-center {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #0f0;
+            border-radius: 50%;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 10px #0f0;
+        }
+        
+        @keyframes scan {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .brand {
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            letter-spacing: 0.3em;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { text-shadow: 0 0 5px #0f0, 0 0 10px #0f0; }
+            to { text-shadow: 0 0 10px #0f0, 0 0 20px #0f0, 0 0 30px #0f0; }
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            opacity: 0.9;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 4rem;
+            opacity: 0.9;
+        }
+        
+        .description {
+            font-size: 1rem;
+            line-height: 1.8;
+            opacity: 0.85;
+            margin: 2rem auto;
+            max-width: 600px;
+            text-align: center;
+        }
+        
+        .description p {
+            margin: 0;
+        }
+        
+        .divider {
+            font-size: 1rem;
+            margin: 3rem 0 2rem 0;
+            opacity: 0.7;
+            letter-spacing: 0.2em;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .stat {
+            padding: 1.5rem;
+            border: 1px solid #0f0;
+            background: rgba(0, 255, 0, 0.05);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            letter-spacing: 0.1em;
+        }
+        
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 20px;
+            background: #0f0;
+            animation: blink 1s step-end infinite;
+            margin-left: 5px;
+        }
+        
+        .copyright {
+            margin-top: 4rem;
+            font-size: 0.8rem;
+            opacity: 0.5;
+            letter-spacing: 0.1em;
+        }
+        
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+        
+        @media (max-width: 768px) {
+            .brand {
+                font-size: 2rem;
+            }
+            .tagline, .subtitle {
+                font-size: 1rem;
+            }
+            .stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <div class="radar">
+                <div class="radar-circle"></div>
+                <div class="radar-line"></div>
+                <div class="radar-center"></div>
+            </div>
+        </div>
+        <h1 class="brand">unknwns</h1>
+        
+        <p class="tagline">discovering what others don't see</p>
+        <p class="subtitle">monetizing the invisible web</p>
+        
+        <div class="divider">/// METHODOLOGY ///</div>
+        
+        <div class="description">
+            <p>We systematically identify unknown unknowns—</p>
+            <p>the opportunities no one is looking for yet.</p>
+            <p>&nbsp;</p>
+            <p>Our systems detect emerging patterns, unmet needs,</p>
+            <p>and gaps in the digital landscape before they become obvious.</p>
+            <p>&nbsp;</p>
+            <p>Then we build websites that fill those voids,</p>
+            <p>adding continual value to the web.</p>
+        </div>
+        
+        <div class="divider">/// NETWORK STATS ///</div>
+        
+        <div class="stats">
+            <div class="stat">
+                <span class="stat-number">91M+</span>
+                <span class="stat-label">PAGEVIEWS/YEAR</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number">250K+</span>
+                <span class="stat-label">DAILY PAGEVIEWS</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number">70K+</span>
+                <span class="stat-label">DAILY SESSIONS</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number">50+</span>
+                <span class="stat-label">ACTIVE PROPERTIES</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number">∞</span>
+                <span class="stat-label">OPPORTUNITIES FOUND</span>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            © 2026 unknwns. All rights reserved.
+        </div>
+    </div>
+</body>
+</html>
